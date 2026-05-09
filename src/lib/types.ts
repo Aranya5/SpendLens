@@ -14,7 +14,7 @@ export interface ToolEntry {
   id: ToolId;
   enabled: boolean;
   plan: string;
-  monthlySpend: string; // string to handle empty input cleanly
+  monthlySpend: string;
   seats: string;
 }
 
@@ -26,9 +26,9 @@ export interface AuditFormData {
 
 export interface AuditResult {
   toolId: ToolId;
-  toolName: string;
+  toolName: string;         // added Day 2
   currentSpend: number;
-  currentPlan: string;
+  currentPlan: string;      // added Day 2
   recommendedPlan: string | null;
   recommendedAction: string;
   monthlySavings: number;
