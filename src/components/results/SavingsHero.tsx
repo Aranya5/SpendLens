@@ -26,7 +26,7 @@ export function SavingsHero({
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-10 text-center mb-8 text-white">
+   <div className="bg-linear-to-br from-blue-600 to-blue-800 rounded-3xl p-10 text-center mb-8 text-white">
       <p className="text-blue-300 text-xs font-semibold uppercase tracking-widest mb-5">
         Potential monthly savings found
       </p>
