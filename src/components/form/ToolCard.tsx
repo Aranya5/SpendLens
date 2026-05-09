@@ -26,7 +26,7 @@ export function ToolCard({ tool }: ToolCardProps) {
       {/* Header row */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
-          <span className="text-2xl flex-shrink-0" aria-hidden>
+          <span className="text-2xl shrink-0" aria-hidden>
             {tool.emoji}
           </span>
           <div className="min-w-0">
@@ -43,7 +43,7 @@ export function ToolCard({ tool }: ToolCardProps) {
           role="switch"
           aria-checked={entry.enabled}
           aria-label={`Toggle ${tool.name}`}
-          className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+          className={`relative shrink-0 w-11 h-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
             entry.enabled ? "bg-blue-600" : "bg-gray-200"
           }`}
         >
