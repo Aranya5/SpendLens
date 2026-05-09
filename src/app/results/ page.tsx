@@ -1,23 +1,27 @@
+import { Metadata } from "next";
 import Link from "next/link";
+import { ResultsView } from "@/components/results/ResultsView";
+
+export const metadata: Metadata = {
+  title: "Your AI Spend Audit | SpendLens",
+  description:
+    "See exactly where your team is overspending on AI tools, with specific recommendations and dollar savings.",
+};
 
 export default function ResultsPage() {
   return (
-    <main className="min-h-screen bg-white flex items-center justify-center">
-      <div className="text-center px-6">
-        <div className="text-5xl mb-6">🔧</div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Audit engine coming Day 2
-        </h1>
-        <p className="text-gray-500 mb-6 max-w-sm mx-auto">
-          The form and state are wired up. Audit logic ships tomorrow.
-        </p>
-        <Link
-          href="/audit"
-          className="text-blue-600 hover:underline font-medium text-sm"
-        >
-          ← Back to form
-        </Link>
-      </div>
+    <main className="min-h-screen bg-white">
+      <nav className="border-b border-gray-100 px-6 py-4">
+        <div className="max-w-5xl mx-auto">
+          <Link
+            href="/"
+            className="font-bold text-xl tracking-tight text-gray-900"
+          >
+            SpendLens
+          </Link>
+        </div>
+      </nav>
+      <ResultsView />
     </main>
   );
 }
