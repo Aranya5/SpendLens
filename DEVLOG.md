@@ -66,3 +66,55 @@
 - Write PROMPTS.md
 - Generate unique shareable URLs for each audit (slug-based, stored in localStorage for now, Supabase Day 4)
 - Add Open Graph + Twitter Card meta tags to the results URL
+
+
+## Day 3 — 2026-05-10
+
+**Hours worked:** 6
+
+**What I did:**
+- Created .env.local with ANTHROPIC_API_KEY and NEXT_PUBLIC_BASE_URL
+- Built src/lib/report-store.ts — in-memory Map using global to survive
+  Next.js hot reloads in development. Documents Day 4 Supabase replacement.
+- Built POST /api/reports — saves AuditReport by ID, returns ID to client
+- Built GET /api/reports/[id] — fetches report by ID for the shared page
+- Built POST /api/summarize — calls Anthropic API (claude-haiku-4-5),
+  catches all errors and returns templated fallback with fallback:true flag.
+  Never crashes the results page.
+- Built AISummary component — skeleton loader during fetch, "templated"
+  badge when fallback, nothing rendered if summary is null
+- Built ShareBox component — copy-to-clipboard, shows after reportId
+  returned from API, loading skeleton while saving
+- Updated ResultsView to fire saveReport() and fetchSummary() in parallel
+  on mount — neither blocks the other or the main results render
+- Built /report/[id] shared page — server component, reads directly from
+  reportStore (same process), strips email/company (not in AuditReport
+  anyway), shows OG and Twitter Card meta via generateMetadata
+- Wrote PROMPTS.md documenting the prompt, model choice, 4 failed attempts,
+  and fallback behavior
+
+**What I learned:**
+- In Next.js App Router, server components in the same process can import
+  the in-memory store directly — no need to self-fetch via HTTP. This is
+  cleaner and faster but won't work on Vercel where each function invocation
+  is a separate process. Documented this limitation; Supabase fixes it Day 4.
+- Firing saveReport and fetchSummary in parallel (not awaiting one before
+  the other) cut the time-to-share-URL by ~half.
+- The AISummary skeleton loader matters a lot perceptually — the results page
+  feels complete even while the AI summary is loading, because the savings
+  hero and per-tool cards are already visible.
+
+**Blockers / what I'm stuck on:**
+- The in-memory report store resets on server restart, so /report/[id] links
+  die after a dev server restart. This is the #1 priority for Day 4 (Supabase).
+- AI summary isn't being saved back to the AuditReport in the store — if
+  someone shares the link, the shared page won't show the AI summary.
+  Will fix this on Day 4 when persisting to Supabase.
+
+**Plan for tomorrow:**
+- Set up Supabase: audits table + leads table
+- Wire lead capture (email form in LeadCaptureBox) to POST /api/leads
+- Set up Resend for transactional email confirmation
+- Add rate limiting / honeypot to lead capture
+- Save AI summary back into the report before persisting to Supabase
+- Replace in-memory store with Supabase reads/writes
